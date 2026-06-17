@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\NoticeController;
+use App\Http\Controllers\UserController;
+
+
 
 
 
@@ -36,5 +39,6 @@ Route::middleware('auth')->group(function () {
     )->name('user.notices');
 
 });
+    Route::resource('users', UserController::class);
 
-require __DIR__.'/auth.php';
+ require __DIR__.'/auth.php';
