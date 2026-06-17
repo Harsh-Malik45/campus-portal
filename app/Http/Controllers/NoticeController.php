@@ -12,7 +12,9 @@ class NoticeController extends Controller
      */
     public function index()
     {
-        //
+         $notices = Notice::latest()->get();
+
+    return view('notices.index', compact('notices'));
     }
 
     /**
@@ -20,7 +22,8 @@ class NoticeController extends Controller
      */
     public function create()
     {
-        //
+            return view('notices.create');
+
     }
 
     /**
@@ -28,7 +31,27 @@ class NoticeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+
+        'title' => 'required|max:255',
+
+        'description' => 'required'
+
+    ]);
+
+    Notice::create([
+
+        'title' => $request->title,
+
+        'description' => $request->description,
+
+        'created_by' => auth()->id()
+
+    ]);
+
+    return redirect()
+            ->route('notices.index')
+            ->with('success','Notice Created');
     }
 
     /**
