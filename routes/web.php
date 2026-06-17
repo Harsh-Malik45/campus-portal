@@ -31,6 +31,10 @@ Route::middleware('auth')->group(function () {
 
     });
 
+       Route::get('/user/notices',
+        [NoticeController::class,'userNotices']
+    )->name('user.notices');
+
 });
 
 require __DIR__.'/auth.php';

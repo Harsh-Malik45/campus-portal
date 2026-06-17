@@ -17,6 +17,14 @@ class NoticeController extends Controller
         return view('notices.index', compact('notices'));
     }
 
+
+    public function userNotices()
+{
+    $notices = Notice::latest()->get();
+
+    return view('user.notices', compact('notices'));
+}
+
     /**
      * Show create form
      */
@@ -93,4 +101,5 @@ class NoticeController extends Controller
             ->route('notices.index')
             ->with('success', 'Notice deleted successfully');
     }
+
 }
