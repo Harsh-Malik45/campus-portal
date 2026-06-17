@@ -1,50 +1,85 @@
- <h1>All Notices</h1>
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>All Notices</title>
 
-@if(session('success'))
-    <p>{{ session('success') }}</p>
-@endif
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-<a href="{{ route('notices.create') }}">
-    Add Notice
-</a>
+<div class="container mt-5">
 
-<table border="1">
+    <div class="d-flex justify-content-between mb-3">
+        <h2>All Notices</h2>
 
-    <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Actions</th>
-    </tr>
+        <a href="{{ route('notices.create') }}"
+           class="btn btn-primary">
+            Add Notice
+        </a>
+    </div>
 
-    @foreach($notices as $notice)
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
-    <tr>
-        <td>{{ $notice->id }}</td>
+    <table class="table table-bordered table-striped">
 
-        <td>{{ $notice->title }}</td>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th width="200">Actions</th>
+            </tr>
+        </thead>
 
-        <td>
+        <tbody>
 
-            <a href="{{ route('notices.edit', $notice->id) }}">
-                Edit
-            </a>
+        @foreach($notices as $notice)
 
-            <form action="{{ route('notices.destroy', $notice->id) }}"
-                  method="POST">
+            <tr>
 
-                @csrf
-                @method('DELETE')
+                <td>{{ $notice->id }}</td>
 
-                <button type="submit">
-                    Delete
-                </button>
+                <td>{{ $notice->title }}</td>
 
-            </form>
+                <td>
 
-        </td>
+                    <a href="{{ route('notices.edit',$notice->id) }}"
+                       class="btn btn-warning btn-sm">
+                        Edit
+                    </a>
 
-    </tr>
+                    <form
+                        action="{{ route('notices.destroy',$notice->id) }}"
+                        method="POST"
+                        class="d-inline"
+                    >
 
-    @endforeach
+                        @csrf
+                        @method('DELETE')
 
-</table>
+                        <button
+                            type="submit"
+                            class="btn btn-danger btn-sm"
+                        >
+                            Delete
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        @endforeach
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</body>
+</html>
