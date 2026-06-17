@@ -1,25 +1,35 @@
+ <!DOCTYPE html>
+<html>
+<head>
+    <title>Create Notice</title>
+</head>
+<body>
+
 <h1>Create Notice</h1>
 
-<form action="{{ route('notices.store') }}"
-      method="POST">
+<form action="{{ route('notices.store') }}" method="POST">
 
     @csrf
 
-    <label>Title</label>
+    <div>
+        <label>Title</label>
+        <input type="text" name="title">
+    </div>
 
-    <input type="text"
-           name="title">
+    <br>
 
-    <br><br>
+    <div>
+        <label>Description</label>
+        <textarea name="description"></textarea>
+    </div>
 
-    <label>Description</label>
-
-    <textarea name="description"></textarea>
-
-    <br><br>
+    <br>
 
     <button type="submit">
-        Save
+        Save Notice
     </button>
 
 </form>
+
+</body>
+</html>

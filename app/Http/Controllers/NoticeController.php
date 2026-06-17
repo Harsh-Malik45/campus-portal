@@ -8,81 +8,89 @@ use Illuminate\Http\Request;
 class NoticeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display all notices
      */
     public function index()
     {
-         $notices = Notice::latest()->get();
+        $notices = Notice::latest()->get();
 
-    return view('notices.index', compact('notices'));
+        return view('notices.index', compact('notices'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show create form
      */
     public function create()
     {
-            return view('notices.create');
-
+        return view('notices.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store notice in database
      */
     public function store(Request $request)
     {
         $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+        ]);
 
-        'title' => 'required|max:255',
+        Notice::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'created_by' => auth()->id(),
+        ]);
 
-        'description' => 'required'
-
-    ]);
-
-    Notice::create([
-
-        'title' => $request->title,
-
-        'description' => $request->description,
-
-        'created_by' => auth()->id()
-
-    ]);
-
-    return redirect()
+        return redirect()
             ->route('notices.index')
-            ->with('success','Notice Created');
+            ->with('success', 'Notice created successfully');
     }
 
     /**
-     * Display the specified resource.
+     * Display single notice
      */
     public function show(Notice $notice)
     {
-        //
+        return view('notices.show', compact('notice'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show edit form
      */
     public function edit(Notice $notice)
     {
-        //
+        return view('notices.edit', compact('notice'));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update notice
      */
     public function update(Request $request, Notice $notice)
     {
-        //
+        $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+        ]);
+
+        $notice->update([
+            'title' => $request->title,
+            'description' => $request->description,
+        ]);
+
+        return redirect()
+            ->route('notices.index')
+            ->with('success', 'Notice updated successfully');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete notice
      */
     public function destroy(Notice $notice)
     {
-        //
+        $notice->delete();
+
+        return redirect()
+            ->route('notices.index')
+            ->with('success', 'Notice deleted successfully');
     }
 }

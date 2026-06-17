@@ -1,4 +1,8 @@
-<h1>All Notices</h1>
+ <h1>All Notices</h1>
+
+@if(session('success'))
+    <p>{{ session('success') }}</p>
+@endif
 
 <a href="{{ route('notices.create') }}">
     Add Notice
@@ -15,21 +19,18 @@
     @foreach($notices as $notice)
 
     <tr>
-
         <td>{{ $notice->id }}</td>
 
         <td>{{ $notice->title }}</td>
 
         <td>
 
-            <a href="{{ route('notices.edit',$notice->id) }}">
+            <a href="{{ route('notices.edit', $notice->id) }}">
                 Edit
             </a>
 
-            <form
-                action="{{ route('notices.destroy',$notice->id) }}"
-                method="POST"
-            >
+            <form action="{{ route('notices.destroy', $notice->id) }}"
+                  method="POST">
 
                 @csrf
                 @method('DELETE')
