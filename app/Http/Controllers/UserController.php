@@ -35,4 +35,21 @@ public function update(Request $request, User $user)
         ->with('success', 'Role updated successfully');
 }
 
+public function destroy(User $user)
+{
+    if(auth()->id() == $user->id)
+    {
+        return back()
+            ->with('error',
+                'You cannot delete your own account');
+    }
+
+    $user->delete();
+
+    return redirect()
+        ->route('users.index')
+        ->with('success',
+            'User deleted successfully');
+}
+
 }
