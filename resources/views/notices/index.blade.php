@@ -12,6 +12,22 @@
     <div class="d-flex justify-content-between mb-3">
         <h2>All Notices</h2>
 
+        <form method="GET"
+      action="{{ route('notices.index') }}"
+      class="mb-3">
+
+    <input type="text"
+           name="search"
+           placeholder="Search Notice"
+           value="{{ request('search') }}">
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
+
+
         <a href="{{ route('notices.create') }}"
            class="btn btn-primary">
             Add Notice

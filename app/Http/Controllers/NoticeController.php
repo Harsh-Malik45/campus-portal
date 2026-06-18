@@ -10,12 +10,16 @@ class NoticeController extends Controller
     /**
      * Display all notices
      */
-    public function index()
-    {
-        $notices = Notice::latest()->get();
+    public function index(Request $request)
+{
+    $search = $request->search;
 
-        return view('notices.index', compact('notices'));
-    }
+    $notices = Notice::where('title', 'LIKE', "%$search%")
+                     ->latest()
+                     ->paginate(5);
+
+    return view('notices.index', compact('notices'));
+}
 
 
     public function userNotices()
