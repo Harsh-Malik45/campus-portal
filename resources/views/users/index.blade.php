@@ -13,30 +13,35 @@
 
     <table class="table table-bordered">
 
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-        </tr>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Actions</th>
+    </tr>
 
-        @foreach($users as $user)
+    @foreach($users as $user)
 
-        <tr>
+    <tr>
 
-            <td>{{ $user->id }}</td>
+        <td>{{ $user->id }}</td>
+        <td>{{ $user->name }}</td>
+        <td>{{ $user->email }}</td>
+        <td>{{ $user->role }}</td>
 
-            <td>{{ $user->name }}</td>
+        <td>
+            <a href="{{ route('users.edit', $user->id) }}"
+               class="btn btn-warning btn-sm">
+                Edit
+            </a>
+        </td>
 
-            <td>{{ $user->email }}</td>
+    </tr>
 
-            <td>{{ $user->role }}</td>
+    @endforeach
 
-        </tr>
-
-        @endforeach
-
-    </table>
+</table>
 
 </div>
 
