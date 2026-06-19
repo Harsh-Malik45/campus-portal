@@ -8,7 +8,7 @@ use App\Models\Notice;
 
 class DashboardController extends Controller
 {
-     public function index()
+      public function index()
 {
     if(auth()->user()->role === 'admin')
     {
@@ -16,14 +16,11 @@ class DashboardController extends Controller
 
         $totalAdmins = User::where('role', 'admin')->count();
 
-        $totalNormalUsers = User::where('role', 'user')->count();
-
         $totalNotices = Notice::count();
 
         return view('admin.dashboard', compact(
             'totalUsers',
             'totalAdmins',
-            'totalNormalUsers',
             'totalNotices'
         ));
     }
