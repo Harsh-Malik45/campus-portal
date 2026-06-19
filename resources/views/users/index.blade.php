@@ -7,6 +7,11 @@
 </head>
 <body>
 
+   <body>
+
+@include('layouts.navbar')
+
+ 
 <div class="container mt-5">
 
     <h2>User Management</h2>

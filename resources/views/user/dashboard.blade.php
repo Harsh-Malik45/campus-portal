@@ -1,7 +1,16 @@
-<h1>User Dashboard</h1>
+<div class="container mt-5">
 
+    <h2>
+        Welcome, {{ auth()->user()->name }}
+    </h2>
 
-<a href="{{ route('user.notices') }}"
-   class="btn btn-primary">
-    View Notices
-</a>
+    <p>
+        View the latest notices published by the administrator.
+    </p>
+
+    <a href="{{ route('user.notices') }}"
+       class="btn btn-primary">
+        View Notices
+    </a>
+
+</div>

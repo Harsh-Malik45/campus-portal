@@ -18,10 +18,16 @@ class DashboardController extends Controller
 
         $totalNotices = Notice::count();
 
+        $recentNotices = Notice::latest()
+                        ->take(5)
+                        ->get();
+
         return view('admin.dashboard', compact(
             'totalUsers',
             'totalAdmins',
-            'totalNotices'
+            'totalNotices',
+             'recentNotices'
+
         ));
     }
 

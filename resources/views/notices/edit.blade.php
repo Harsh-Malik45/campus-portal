@@ -5,6 +5,11 @@
 </head>
 <body>
 
+<body>
+
+@include('layouts.navbar')
+
+ 
 <h1>Edit Notice</h1>
 
 <form action="{{ route('notices.update', $notice->id) }}" method="POST">

@@ -5,6 +5,11 @@
 </head>
 <body>
 
+ <body>
+
+@include('layouts.navbar')
+
+ 
 <h1>Create Notice</h1>
 
 <form action="{{ route('notices.store') }}" method="POST">
