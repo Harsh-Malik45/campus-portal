@@ -7,36 +7,36 @@
 </head>
 <body>
 
-  <body>
-
 @include('layouts.navbar')
 
- 
 <div class="container mt-5">
 
-    <div class="d-flex justify-content-between mb-3">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+
         <h2>All Notices</h2>
 
         <form method="GET"
-      action="{{ route('notices.index') }}"
-      class="mb-3">
+              action="{{ route('notices.index') }}"
+              class="d-flex">
 
-    <input type="text"
-           name="search"
-           placeholder="Search Notice"
-           value="{{ request('search') }}">
+            <input type="text"
+                   name="search"
+                   placeholder="Search Notice"
+                   value="{{ request('search') }}"
+                   class="form-control me-2">
 
-    <button type="submit">
-        Search
-    </button>
+            <button type="submit"
+                    class="btn btn-dark">
+                Search
+            </button>
 
-</form>
-
+        </form>
 
         <a href="{{ route('notices.create') }}"
            class="btn btn-primary">
             Add Notice
         </a>
+
     </div>
 
     @if(session('success'))
@@ -51,6 +51,7 @@
             <tr>
                 <th>ID</th>
                 <th>Title</th>
+                <th>Date</th>
                 <th width="200">Actions</th>
             </tr>
         </thead>
@@ -66,25 +67,26 @@
                 <td>{{ $notice->title }}</td>
 
                 <td>
+                    {{ $notice->created_at->format('d M Y') }}
+                </td>
 
-                    <a href="{{ route('notices.edit',$notice->id) }}"
+                <td>
+
+                    <a href="{{ route('notices.edit', $notice->id) }}"
                        class="btn btn-warning btn-sm">
                         Edit
                     </a>
 
-                    <form
-                        action="{{ route('notices.destroy',$notice->id) }}"
-                        method="POST"
-                        class="d-inline"
-                    >
+                    <form action="{{ route('notices.destroy', $notice->id) }}"
+                          method="POST"
+                          class="d-inline">
 
                         @csrf
                         @method('DELETE')
 
-                        <button
-                            type="submit"
-                            class="btn btn-danger btn-sm"
-                        >
+                        <button type="submit"
+                                class="btn btn-danger btn-sm"
+                                onclick="return confirm('Are you sure you want to delete this notice?')">
                             Delete
                         </button>
 
@@ -96,18 +98,13 @@
 
         @endforeach
 
-
-
         </tbody>
 
     </table>
 
-     <div class="d-flex justify-content-center mt-3">
-    {{ $notices->appends(request()->query())->links() }}
-</div>
-
-
-  </div>
+    <div class="d-flex justify-content-center mt-3">
+        {{ $notices->appends(request()->query())->links() }}
+    </div>
 
 </div>
 

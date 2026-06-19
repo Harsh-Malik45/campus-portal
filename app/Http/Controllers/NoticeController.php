@@ -63,8 +63,9 @@ class NoticeController extends Controller
      */
     public function show(Notice $notice)
     {
-        return view('notices.show', compact('notice'));
-    }
+          return view('user.notice-details', compact('notice'));
+
+     }
 
     /**
      * Show edit form
@@ -105,5 +106,6 @@ class NoticeController extends Controller
             ->route('notices.index')
             ->with('success', 'Notice deleted successfully');
     }
+
 
 }
