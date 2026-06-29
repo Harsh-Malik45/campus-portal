@@ -1,59 +1,235 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+ # Notice Board Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A role-based Notice Board Management System built with Laravel. The system allows administrators to manage notices and users, while normal users can view published notices.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Authentication
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+* User Registration
+* User Login
+* User Logout
+* Laravel Breeze Authentication
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Role-Based Access Control
 
-## Learning Laravel
+* Admin Role
+* User Role
+* Protected Admin Routes using Middleware
+* Separate Admin and User Dashboards
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Notice Management
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+* Create Notice
+* View Notices
+* Edit Notice
+* Delete Notice
+* Notice Details Page
+* Published Date Display
+* Recent Notices Section
 
-## Laravel Sponsors
+### User Management
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* View All Users
+* Edit User Roles
+* Delete Users
+* Prevent Admin Self-Deletion
 
-### Premium Partners
+### Dashboard
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+* Total Users Count
+* Total Admins Count
+* Total Notices Count
+* Recent Notices Overview
 
-## Contributing
+### Additional Features
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Notice Search Functionality
+* Pagination
+* Bootstrap UI
+* Responsive Design
+* Delete Confirmation Popup
 
-## Code of Conduct
+## Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Frontend
 
-## Security Vulnerabilities
+* HTML
+* CSS
+* Bootstrap 5
+* Blade Templates
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Backend
 
-## License
+* PHP
+* Laravel 12
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Database
+
+* MySQL
+
+### Tools
+
+* Git
+* GitHub
+* XAMPP
+
+## Database Structure
+
+### Users Table
+
+| Column     | Type             |
+| ---------- | ---------------- |
+| id         | bigint           |
+| name       | string           |
+| email      | string           |
+| password   | string           |
+| role       | enum(admin,user) |
+| created_at | timestamp        |
+| updated_at | timestamp        |
+
+### Notices Table
+
+| Column      | Type        |
+| ----------- | ----------- |
+| id          | bigint      |
+| title       | string      |
+| description | text        |
+| created_by  | foreign key |
+| created_at  | timestamp   |
+| updated_at  | timestamp   |
+
+## Relationships
+
+### User Model
+
+```php
+public function notices()
+{
+    return $this->hasMany(Notice::class, 'created_by');
+}
+```
+
+### Notice Model
+
+```php
+public function user()
+{
+    return $this->belongsTo(User::class, 'created_by');
+}
+```
+
+## Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/notice-board-management-system.git
+```
+
+### Navigate to Project
+
+```bash
+cd notice-board-management-system
+```
+
+### Install Dependencies
+
+```bash
+composer install
+```
+
+### Configure Environment
+
+```bash
+cp .env.example .env
+```
+
+Update database credentials in `.env`.
+
+### Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### Start Development Server
+
+```bash
+php artisan serve
+```
+
+Visit:
+
+```text
+http://127.0.0.1:8000
+```
+
+## Admin Functionalities
+
+* Manage Notices
+* Manage Users
+* Assign Roles
+* View Dashboard Statistics
+* Search Notices
+* View Recent Notices
+
+## User Functionalities
+
+* View Notices
+* Search Notices
+* View Notice Details
+* See Published Dates
+
+## Project Structure
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   │   ├── DashboardController.php
+│   │   ├── NoticeController.php
+│   │   └── UserController.php
+│   └── Middleware/
+│       └── AdminMiddleware.php
+├── Models/
+│   ├── User.php
+│   └── Notice.php
+
+resources/views/
+├── admin/
+├── user/
+├── notices/
+└── layouts/
+```
+
+## Future Enhancements
+
+* Notice Categories
+* File Attachments
+* Email Notifications
+* User Profile Management
+* Advanced Search Filters
+
+## Learning Outcomes
+
+* Laravel Authentication
+* Middleware
+* Role-Based Authorization
+* CRUD Operations
+* Eloquent Relationships
+* Search and Pagination
+* MVC Architecture
+* Database Design
+
+## Author
+
+Harsh Malik
+
+B.Tech Computer Science Engineering Student
