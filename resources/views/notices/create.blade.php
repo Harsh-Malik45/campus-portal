@@ -33,8 +33,7 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('notices.store') }}" method="POST">
-
+                     <form id="noticeForm" action="{{ route('notices.store') }}" method="POST">
                         @csrf
 
                         <div class="mb-3">
@@ -91,6 +90,58 @@
     </div>
 
 </div>
+          <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+          <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
+
+
+
+            <script>
+$(document).ready(function () {
+
+    $("#noticeForm").validate({
+
+        rules: {
+            title: {
+                required: true,
+                minlength: 3,
+                maxlength: 255
+            },
+            description: {
+                required: true,
+                minlength: 10
+            }
+        },
+
+        messages: {
+            title: {
+                required: "Please enter a title.",
+                minlength: "Title must be at least 3 characters.",
+                maxlength: "Title cannot exceed 255 characters."
+            },
+            description: {
+                required: "Please enter a description.",
+                minlength: "Description must be at least 10 characters."
+            }
+        },
+
+        errorClass: "text-danger",
+
+        errorElement: "small",
+
+        highlight: function(element) {
+            $(element).addClass("is-invalid");
+        },
+
+        unhighlight: function(element) {
+            $(element).removeClass("is-invalid");
+            $(element).addClass("is-valid");
+        }
+
+    });
+
+});
+</script>
 
 </body>
 </html>

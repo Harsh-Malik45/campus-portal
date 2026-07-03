@@ -24,7 +24,7 @@
                 <div class="card-body text-center">
 
                     <h2 class="mb-3">
-                        Welcome, {{ auth()->user()->name }} 👋
+                        Welcome, {{ auth()->user()->name }} 
                     </h2>
 
                     <p class="text-muted mb-4">

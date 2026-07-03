@@ -19,14 +19,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // User Routes
+    // user Routes
     Route::get('/user/notices', [NoticeController::class, 'userNotices'])
         ->name('user.notices');
 
     Route::get('/user/notices/{notice}', [NoticeController::class, 'show'])
         ->name('user.notice.show');
 
-    // Admin Routes
+    // admin Routes
     Route::middleware('admin')->group(function () {
 
         Route::resource('notices', NoticeController::class);
