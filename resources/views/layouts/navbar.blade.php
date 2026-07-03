@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
     <div class="container">
 
         <a class="navbar-brand" href="#">
-            Notice Board Management System
+            Campus Notice Board
         </a>
 
         <div>
@@ -45,7 +45,8 @@
 
                 @csrf
 
-                <button class="btn btn-danger btn-sm">
+                <button type="submit"
+                        class="btn btn-danger btn-sm">
                     Logout
                 </button>
 

@@ -8,6 +8,7 @@
 <body>
 
 @include('layouts.navbar')
+@include('layouts.toastr')
 
 <div class="container mt-5">
 

@@ -8,6 +8,7 @@
 <body>
 
 @include('layouts.navbar')
+@include('layouts.toastr')
 
 <div class="container mt-5">
 
@@ -24,7 +25,7 @@
                 <div class="card-body text-center">
 
                     <h2 class="mb-3">
-                        Welcome, {{ auth()->user()->name }} 
+                        Welcome, {{ auth()->user()->name }}
                     </h2>
 
                     <p class="text-muted mb-4">
