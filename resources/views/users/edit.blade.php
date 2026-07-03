@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
     <title>Edit User</title>
@@ -7,53 +7,95 @@
 </head>
 <body>
 
+@include('layouts.navbar')
+
 <div class="container mt-5">
 
-    <h2>Edit User</h2>
+    <div class="card shadow">
 
-    <form action="{{ route('users.update', $user->id) }}"
-          method="POST">
+        <div class="card-header bg-primary text-white">
+            <h3>Edit User</h3>
+        </div>
 
-        @csrf
-        @method('PUT')
+        <div class="card-body">
 
-        <div class="mb-3">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
 
-            <label>Name</label>
+            <form action="{{ route('users.update', $user->id) }}"
+                  method="POST">
 
-            <input type="text"
-                   class="form-control"
-                   value="{{ $user->name }}"
-                   readonly>
+                @csrf
+                @method('PUT')
+
+                <div class="mb-3">
+                    <label class="form-label">Name</label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        value="{{ old('name', $user->name) }}"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        value="{{ old('email', $user->email) }}"
+                        required
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Role</label>
+
+                    <select
+                        name="role"
+                        class="form-select"
+                        required>
+
+                        <option value="admin"
+                            {{ $user->role == 'admin' ? 'selected' : '' }}>
+                            Admin
+                        </option>
+
+                        <option value="user"
+                            {{ $user->role == 'user' ? 'selected' : '' }}>
+                            User
+                        </option>
+
+                    </select>
+                </div>
+
+                <a href="{{ route('users.index') }}"
+                   class="btn btn-secondary">
+                    Back
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Update User
+                </button>
+
+            </form>
 
         </div>
 
-        <div class="mb-3">
-
-            <label>Role</label>
-
-            <select name="role"
-                    class="form-control">
-
-                <option value="admin"
-                    {{ $user->role == 'admin' ? 'selected' : '' }}>
-                    Admin
-                </option>
-
-                <option value="user"
-                    {{ $user->role == 'user' ? 'selected' : '' }}>
-                    User
-                </option>
-
-            </select>
-
-        </div>
-
-        <button class="btn btn-primary">
-            Update Role
-        </button>
-
-    </form>
+    </div>
 
 </div>
 

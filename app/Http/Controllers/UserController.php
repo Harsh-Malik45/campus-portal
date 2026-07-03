@@ -20,20 +20,27 @@ class UserController extends Controller
     return view('users.edit', compact('user'));
 }
 
-public function update(Request $request, User $user)
+       public function update(Request $request, User $user)
 {
     $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $user->id,
         'role' => 'required|in:admin,user',
     ]);
 
     $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
         'role' => $request->role,
     ]);
 
     return redirect()
         ->route('users.index')
-        ->with('success', 'Role updated successfully');
+        ->with('success', 'User updated successfully');
 }
+
+
+
 
 public function destroy(User $user)
 {
