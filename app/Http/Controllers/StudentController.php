@@ -65,16 +65,35 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        //
+            return view('students.edit', compact('student'));
+
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Student $student)
-    {
-        //
-    }
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'roll_no' => 'required|unique:students,roll_no,' . $student->id,
+        'year' => 'required|integer|min:1|max:4',
+        'semester' => 'required|integer|min:1|max:8',
+        'branch' => 'required|string|max:100',
+    ]);
+
+    $student->update([
+        'name' => $request->name,
+        'roll_no' => $request->roll_no,
+        'year' => $request->year,
+        'semester' => $request->semester,
+        'branch' => $request->branch,
+    ]);
+
+    return redirect()
+        ->route('students.index')
+        ->with('success', 'Student updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.
