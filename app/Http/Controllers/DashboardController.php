@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Notice;
+use App\Models\Student;
 
 class DashboardController extends Controller
 {
@@ -18,6 +19,8 @@ class DashboardController extends Controller
 
         $totalNotices = Notice::count();
 
+        $totalStudents = Student::count();
+
         $recentNotices = Notice::latest()
                         ->take(5)
                         ->get();
@@ -26,6 +29,7 @@ class DashboardController extends Controller
             'totalUsers',
             'totalAdmins',
             'totalNotices',
+             'totalStudents',
              'recentNotices'
 
         ));

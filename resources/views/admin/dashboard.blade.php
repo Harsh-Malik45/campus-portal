@@ -57,6 +57,23 @@
     </div>
 </div>
 
+
+       <div class="col-md-3">
+
+    <div class="card bg-info text-white shadow">
+
+        <div class="card-body text-center">
+
+            <h5>Total Students</h5>
+
+            <h2>{{ $totalStudents }}</h2>
+
+        </div>
+
+    </div>
+
+</div>
+
     </div>
 
     <div class="card mt-4">
