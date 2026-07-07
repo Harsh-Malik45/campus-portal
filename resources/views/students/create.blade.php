@@ -46,8 +46,9 @@
 
                     @endif
 
-                    <form action="{{ route('students.store') }}"
-                          method="POST">
+                     <form id="studentForm"
+      action="{{ route('students.store') }}"
+      method="POST">
 
                         @csrf
 
@@ -132,6 +133,100 @@
     </div>
 
 </div>
+
+      <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.21.0/dist/jquery.validate.min.js"></script>
+
+
+   <script>
+
+$(document).ready(function () {
+
+    $("#studentForm").validate({
+
+        rules: {
+
+            name: {
+                required: true,
+                minlength: 3,
+                maxlength: 255
+            },
+
+            roll_no: {
+                required: true
+            },
+
+            year: {
+                required: true,
+                digits: true,
+                min: 1,
+                max: 4
+            },
+
+            semester: {
+                required: true,
+                digits: true,
+                min: 1,
+                max: 8
+            },
+
+            branch: {
+                required: true,
+                minlength: 2
+            }
+
+        },
+
+        messages: {
+
+            name: {
+                required: "Please enter student name.",
+                minlength: "Name must contain at least 3 characters."
+            },
+
+            roll_no: {
+                required: "Please enter roll number."
+            },
+
+            year: {
+                required: "Please enter year.",
+                digits: "Year must be a number.",
+                min: "Minimum year is 1.",
+                max: "Maximum year is 4."
+            },
+
+            semester: {
+                required: "Please enter semester.",
+                digits: "Semester must be a number.",
+                min: "Minimum semester is 1.",
+                max: "Maximum semester is 8."
+            },
+
+            branch: {
+                required: "Please enter branch.",
+                minlength: "Branch name is too short."
+            }
+
+        },
+
+        errorElement: "small",
+        errorClass: "text-danger",
+
+        highlight: function(element) {
+            $(element).addClass("is-invalid");
+        },
+
+        unhighlight: function(element) {
+            $(element).removeClass("is-invalid");
+            $(element).addClass("is-valid");
+        }
+
+    });
+
+});
+
+</script>
 
 </body>
 
