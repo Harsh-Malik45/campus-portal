@@ -9,18 +9,33 @@
 
 @include('layouts.navbar')
 
-<div class="container mt-5">
+< <div class="d-flex justify-content-between align-items-center mb-3">
 
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Student Management</h2>
 
-        <h2>Student Management</h2>
+    <form method="GET"
+          action="{{ route('students.index') }}"
+          class="d-flex">
 
-        <a href="{{ route('students.create') }}"
-           class="btn btn-primary">
-            Add Student
-        </a>
+        <input
+            type="text"
+            name="search"
+            class="form-control me-2"
+            placeholder="Search Student"
+            value="{{ request('search') }}">
 
-    </div>
+        <button class="btn btn-dark">
+            Search
+        </button>
+
+    </form>
+
+    <a href="{{ route('students.create') }}"
+       class="btn btn-primary">
+        Add Student
+    </a>
+
+</div>
 
     <table class="table table-bordered table-striped">
 
@@ -73,10 +88,11 @@
                         @method('DELETE')
 
                         <button
-                            class="btn btn-danger btn-sm"
-                            onclick="return confirm('Delete this student?')">
-                            Delete
-                        </button>
+    type="submit"
+    class="btn btn-danger btn-sm"
+    onclick="return confirm('Are you sure you want to delete this student?')">
+    Delete
+</button>
 
                     </form>
 
@@ -102,8 +118,7 @@
 
     <div class="d-flex justify-content-center">
 
-        {{ $students->links() }}
-
+          {{ $students->appends(request()->query())->links() }}
     </div>
 
 </div>
