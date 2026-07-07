@@ -11,9 +11,11 @@ class StudentController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
-    }
+{
+    $students = Student::latest()->paginate(5);
+
+    return view('students.index', compact('students'));
+}
 
     /**
      * Show the form for creating a new resource.

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('notices', NoticeController::class);
 
         Route::resource('users', UserController::class);
+        Route::resource('students', StudentController::class);
 
     });
 
