@@ -11,10 +11,27 @@ class ResultController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    public function index(Request $request)
+{
+    $search = $request->search;
+
+    $results = Result::with('student')
+        ->when($search, function ($query) use ($search) {
+
+            $query->where('subject', 'LIKE', "%{$search}%")
+                  ->orWhereHas('student', function ($q) use ($search) {
+
+                      $q->where('name', 'LIKE', "%{$search}%")
+                        ->orWhere('roll_no', 'LIKE', "%{$search}%");
+
+                  });
+
+        })
+        ->latest()
+        ->paginate(5);
+
+    return view('results.index', compact('results'));
+}
 
     /**
      * Show the form for creating a new resource.
