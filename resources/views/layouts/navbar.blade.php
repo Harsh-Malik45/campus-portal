@@ -3,28 +3,39 @@
     <div class="container">
 
         <a class="navbar-brand" href="#">
-            Campus Notice Board
+            Campus Portal
         </a>
 
         <div>
 
-            @if(auth()->user()->role == 'admin')
+              @if(auth()->user()->role == 'admin')
 
-                <a href="{{ route('dashboard') }}"
-                   class="btn btn-light btn-sm">
-                    Dashboard
-                </a>
+    <a href="{{ route('dashboard') }}"
+       class="btn btn-light btn-sm">
+        Dashboard
+    </a>
 
-                <a href="{{ route('notices.index') }}"
-                   class="btn btn-primary btn-sm">
-                    Notices
-                </a>
+    <a href="{{ route('notices.index') }}"
+       class="btn btn-primary btn-sm">
+        Notices
+    </a>
 
-                <a href="{{ route('users.index') }}"
-                   class="btn btn-success btn-sm">
-                    Users
-                </a>
+    <a href="{{ route('students.index') }}"
+       class="btn btn-info btn-sm">
+        Students
+    </a>
 
+    <a href="{{ route('results.index') }}"
+       class="btn btn-warning btn-sm">
+        Results
+    </a>
+
+    <a href="{{ route('users.index') }}"
+       class="btn btn-success btn-sm">
+        Users
+    </a>
+
+@endif
             @else
 
                 <a href="{{ route('dashboard') }}"

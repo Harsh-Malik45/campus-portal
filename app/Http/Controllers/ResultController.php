@@ -98,22 +98,50 @@ class ResultController extends Controller
      */
     public function edit(Result $result)
     {
-        //
+        $students = Student::orderBy('name')->get();
+
+    return view('results.edit', compact('result', 'students'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Result $result)
-    {
-        //
+     public function update(Request $request, Result $result)
+{
+    $request->validate([
+        'student_id' => 'required|exists:students,id',
+        'subject' => 'required|max:255',
+        'max_marks' => 'required|integer|min:1',
+        'obtained_marks' => 'required|integer|min:0',
+    ]);
+
+    if ($request->obtained_marks > $request->max_marks) {
+        return back()
+            ->withInput()
+            ->with('error', 'Obtained marks cannot be greater than maximum marks.');
     }
+
+    $result->update([
+        'student_id' => $request->student_id,
+        'subject' => $request->subject,
+        'max_marks' => $request->max_marks,
+        'obtained_marks' => $request->obtained_marks,
+    ]);
+
+    return redirect()
+        ->route('results.index')
+        ->with('success', 'Result updated successfully');
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Result $result)
-    {
-        //
-    }
+     public function destroy(Result $result)
+{
+    $result->delete();
+
+    return redirect()
+        ->route('results.index')
+        ->with('success', 'Result deleted successfully');
+}
 }
