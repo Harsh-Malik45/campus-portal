@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('users', UserController::class);
         Route::resource('students', StudentController::class);
+        Route::resource('results', ResultController::class);
 
     });
 

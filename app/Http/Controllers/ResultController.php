@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Result;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class ResultController extends Controller
@@ -19,17 +20,53 @@ class ResultController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        //
-    }
+{
+    $students = Student::orderBy('name')->get();
+
+    return view('results.create', compact('students'));
+}
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+{
+    $request->validate([
+
+        'student_id' => 'required|exists:students,id',
+
+        'subject' => 'required|max:255',
+
+        'max_marks' => 'required|integer|min:1',
+
+        'obtained_marks' => 'required|integer|min:0',
+
+    ]);
+
+    if ($request->obtained_marks > $request->max_marks) {
+
+        return back()
+            ->withInput()
+            ->with('error', 'Obtained marks cannot be greater than maximum marks.');
+
     }
+
+    Result::create([
+
+        'student_id' => $request->student_id,
+
+        'subject' => $request->subject,
+
+        'max_marks' => $request->max_marks,
+
+        'obtained_marks' => $request->obtained_marks,
+
+    ]);
+
+    return redirect()
+        ->route('results.index')
+        ->with('success', 'Result added successfully.');
+}
 
     /**
      * Display the specified resource.
