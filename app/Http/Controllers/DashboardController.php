@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Notice;
 use App\Models\Student;
+use App\Models\Result;
+
 
 class DashboardController extends Controller
 {
@@ -21,16 +23,20 @@ class DashboardController extends Controller
 
         $totalStudents = Student::count();
 
+        $totalResults = Result::count();
+
         $recentNotices = Notice::latest()
                         ->take(5)
                         ->get();
 
         return view('admin.dashboard', compact(
-            'totalUsers',
-            'totalAdmins',
-            'totalNotices',
-             'totalStudents',
-             'recentNotices'
+
+    'totalUsers',
+    'totalAdmins',
+    'totalNotices',
+    'totalStudents',
+    'totalResults',
+    'recentNotices'
 
         ));
     }
