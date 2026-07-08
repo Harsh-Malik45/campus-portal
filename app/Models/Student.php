@@ -13,4 +13,9 @@ class Student extends Model
         'semester',
         'branch',
     ];
+
+    public function results()
+    {
+        return $this->hasMany(Result::class);
+    }
 }
