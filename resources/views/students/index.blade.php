@@ -1,124 +1,161 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
-    <title>Students</title>
+    <title>Student Management</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
 @include('layouts.navbar')
+@include('layouts.toastr')
 
-< <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="container mt-5">
 
-    <h2>Student Management</h2>
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <form method="GET"
-          action="{{ route('students.index') }}"
-          class="d-flex">
+        <div>
+            <h2 class="fw-bold mb-0">Student Management</h2>
+            <small class="text-muted">
+                Manage all students in the campus portal.
+            </small>
+        </div>
 
-        <input
-            type="text"
-            name="search"
-            class="form-control me-2"
-            placeholder="Search Student"
-            value="{{ request('search') }}">
+        <a href="{{ route('students.create') }}"
+           class="btn btn-primary">
+            + Add Student
+        </a>
 
-        <button class="btn btn-dark">
-            Search
-        </button>
+    </div>
 
-    </form>
+    <div class="card shadow">
 
-    <a href="{{ route('students.create') }}"
-       class="btn btn-primary">
-        Add Student
-    </a>
+        <div class="card-header bg-light">
 
-</div>
+            <form method="GET"
+                  action="{{ route('students.index') }}"
+                  class="row g-2">
 
-    <table class="table table-bordered table-striped">
+                <div class="col-md-10">
 
-        <thead class="table-dark">
+                    <input
+                        type="text"
+                        name="search"
+                        class="form-control"
+                        placeholder="Search by Name, Roll Number or Branch..."
+                        value="{{ request('search') }}">
 
-            <tr>
+                </div>
 
-                <th>ID</th>
-                <th>Name</th>
-                <th>Roll No</th>
-                <th>Year</th>
-                <th>Semester</th>
-                <th>Branch</th>
-                <th width="180">Actions</th>
+                <div class="col-md-2 d-grid">
 
-            </tr>
+                    <button class="btn btn-dark">
+                        Search
+                    </button>
 
-        </thead>
+                </div>
 
-        <tbody>
+            </form>
 
-        @forelse($students as $student)
+        </div>
 
-            <tr>
+        <div class="card-body p-0">
 
-                <td>{{ $student->id }}</td>
+            <table class="table table-hover table-bordered mb-0">
 
-                <td>{{ $student->name }}</td>
+                <thead class="table-dark">
 
-                <td>{{ $student->roll_no }}</td>
+                    <tr>
 
-                <td>{{ $student->year }}</td>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Roll No</th>
+                        <th>Year</th>
+                        <th>Semester</th>
+                        <th>Branch</th>
+                        <th width="170">Actions</th>
 
-                <td>{{ $student->semester }}</td>
+                    </tr>
 
-                <td>{{ $student->branch }}</td>
+                </thead>
 
-                <td>
+                <tbody>
 
-                    <a href="{{ route('students.edit',$student->id) }}"
-                       class="btn btn-warning btn-sm">
-                        Edit
-                    </a>
+                @forelse($students as $student)
 
-                    <form action="{{ route('students.destroy',$student->id) }}"
-                          method="POST"
-                          class="d-inline">
+                    <tr>
 
-                        @csrf
-                        @method('DELETE')
+                        <td>{{ $student->id }}</td>
 
-                        <button
-    type="submit"
-    class="btn btn-danger btn-sm"
-    onclick="return confirm('Are you sure you want to delete this student?')">
-    Delete
-</button>
+                        <td>{{ $student->name }}</td>
 
-                    </form>
+                        <td>{{ $student->roll_no }}</td>
 
-                </td>
+                        <td>{{ $student->year }}</td>
 
-            </tr>
+                        <td>{{ $student->semester }}</td>
 
-        @empty
+                        <td>{{ $student->branch }}</td>
 
-            <tr>
+                        <td>
 
-                <td colspan="7" class="text-center">
-                    No Students Found
-                </td>
+                            <a href="{{ route('students.edit', $student->id) }}"
+                               class="btn btn-warning btn-sm">
+                                Edit
+                            </a>
 
-            </tr>
+                            <form action="{{ route('students.destroy', $student->id) }}"
+                                  method="POST"
+                                  class="d-inline">
 
-        @endforelse
+                                @csrf
+                                @method('DELETE')
 
-        </tbody>
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="return confirm('Are you sure you want to delete this student?')">
 
-    </table>
+                                    Delete
 
-    <div class="d-flex justify-content-center">
+                                </button>
 
-          {{ $students->appends(request()->query())->links() }}
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                @empty
+
+                    <tr>
+
+                        <td colspan="7" class="text-center py-4">
+
+                            No Students Found
+
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <div class="card-footer">
+
+            <div class="d-flex justify-content-center">
+
+                {{ $students->appends(request()->query())->links() }}
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

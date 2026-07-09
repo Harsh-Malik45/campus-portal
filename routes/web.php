@@ -37,6 +37,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('students', StudentController::class);
         Route::resource('results', ResultController::class);
 
+        Route::get('/results/import', [ResultController::class, 'importForm'])
+        ->name('results.import.form');
+
+       Route::post('/results/import', [ResultController::class, 'import'])
+      ->name('results.import');
+
     });
 
 });

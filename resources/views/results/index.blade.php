@@ -37,13 +37,23 @@
             </button>
 
         </form>
+       <div>
 
-        <a href="{{ route('results.create') }}"
-           class="btn btn-primary">
+    <a href="{{ route('results.import.form') }}"
+       class="btn btn-success me-2">
 
-            Add Result
+        Import Excel
 
-        </a>
+    </a>
+
+    <a href="{{ route('results.create') }}"
+       class="btn btn-primary">
+
+        Add Result
+
+    </a>
+
+</div>
 
     </div>
 
