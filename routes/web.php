@@ -42,6 +42,11 @@ Route::middleware('auth')->group(function () {
        Route::post('/results/import', [ResultController::class, 'import'])
       ->name('results.import');
 
+      Route::get(
+    '/results/template/download',
+    [ResultController::class, 'downloadTemplate']
+)->name('results.template');
+
          Route::resource('results', ResultController::class);
 
     });

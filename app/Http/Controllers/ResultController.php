@@ -7,6 +7,8 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ResultsImport;
+use App\Exports\ResultsTemplateExport;
+
 
 class ResultController extends Controller
 {
@@ -163,5 +165,12 @@ public function import(Request $request)
     return redirect()
         ->route('results.index')
         ->with('success', 'Results imported successfully.');
+}
+public function downloadTemplate()
+{
+    return Excel::download(
+        new ResultsTemplateExport,
+        'results_template.xlsx'
+    );
 }
 }

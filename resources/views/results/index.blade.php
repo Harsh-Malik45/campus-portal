@@ -37,7 +37,16 @@
             </button>
 
         </form>
-       <div>
+
+
+        <div>
+
+    <a href="{{ route('results.template') }}"
+       class="btn btn-secondary me-2">
+
+        Download Template
+
+    </a>
 
     <a href="{{ route('results.import.form') }}"
        class="btn btn-success me-2">
