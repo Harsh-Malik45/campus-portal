@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Result;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ResultsImport;
 
 class ResultController extends Controller
 {
@@ -143,5 +145,23 @@ class ResultController extends Controller
     return redirect()
         ->route('results.index')
         ->with('success', 'Result deleted successfully');
+}
+
+public function importForm()
+{
+    return view('results.import');
+}
+
+public function import(Request $request)
+{
+    $request->validate([
+        'file' => 'required|mimes:xlsx,xls'
+    ]);
+
+    Excel::import(new ResultsImport, $request->file('file'));
+
+    return redirect()
+        ->route('results.index')
+        ->with('success', 'Results imported successfully.');
 }
 }
