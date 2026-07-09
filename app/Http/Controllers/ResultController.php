@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ResultsImport;
 use App\Exports\ResultsTemplateExport;
+use App\Exports\ResultsExport;
 
 
 class ResultController extends Controller
@@ -171,6 +172,13 @@ public function downloadTemplate()
     return Excel::download(
         new ResultsTemplateExport,
         'results_template.xlsx'
+    );
+}
+public function export()
+{
+    return Excel::download(
+        new ResultsExport,
+        'student_results.xlsx'
     );
 }
 }

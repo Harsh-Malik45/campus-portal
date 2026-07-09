@@ -15,20 +15,6 @@ class ResultsTemplateExport implements FromArray
                 'subject',
                 'max_marks',
                 'obtained_marks'
-            ],
-
-            [
-                '223344',
-                'DSA',
-                100,
-                95
-            ],
-
-            [
-                '123211',
-                'OS',
-                100,
-                76
             ]
 
         ];
