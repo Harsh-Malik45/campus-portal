@@ -63,22 +63,24 @@
                 <div class="mb-3">
                     <label class="form-label">Role</label>
 
-                    <select
-                        name="role"
-                        class="form-select"
-                        required>
+                     <select name="role" class="form-select">
 
-                        <option value="admin"
-                            {{ $user->role == 'admin' ? 'selected' : '' }}>
-                            Admin
-                        </option>
+    <option value="admin"
+        {{ $user->role == 'admin' ? 'selected' : '' }}>
+        Admin
+    </option>
 
-                        <option value="user"
-                            {{ $user->role == 'user' ? 'selected' : '' }}>
-                            User
-                        </option>
+    <option value="user"
+        {{ $user->role == 'user' ? 'selected' : '' }}>
+        User
+    </option>
 
-                    </select>
+    <option value="student"
+        {{ $user->role == 'student' ? 'selected' : '' }}>
+        Student
+    </option>
+
+</select>
                 </div>
 
                 <a href="{{ route('users.index') }}"
