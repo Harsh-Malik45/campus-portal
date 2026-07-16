@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'roll_no',
         'year',
@@ -18,4 +19,9 @@ class Student extends Model
     {
         return $this->hasMany(Result::class);
     }
+
+    public function user()
+{
+    return $this->belongsTo(User::class);
+}
 }

@@ -52,4 +52,9 @@ class User extends Authenticatable
 {
     return $this->hasMany(Notice::class,'created_by');
 }
+
+public function student()
+{
+    return $this->hasOne(Student::class);
+}
 }

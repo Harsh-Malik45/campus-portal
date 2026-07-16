@@ -6,8 +6,9 @@
             Campus Portal
         </a>
 
-        <div>
+        <div class="d-flex gap-2">
 
+            {{-- ================= ADMIN ================= --}}
             @if(auth()->user()->role == 'admin')
 
                 <a href="{{ route('dashboard') }}"
@@ -35,6 +36,33 @@
                     Users
                 </a>
 
+            {{-- ================= STUDENT ================= --}}
+            @elseif(auth()->user()->role == 'student')
+
+                <a href="{{ route('student.dashboard') }}"
+                   class="btn btn-light btn-sm">
+                    Dashboard
+                </a>
+
+                <a href="{{ route('student.profile') }}"
+                   class="btn btn-info btn-sm">
+                    My Profile
+                </a>
+
+                <a href="{{ route('user.notices') }}"
+                   class="btn btn-primary btn-sm">
+                    Notices
+                </a>
+
+                {{-- Future Feature --}}
+                {{--
+                <a href="{{ route('student.results') }}"
+                   class="btn btn-warning btn-sm">
+                    My Results
+                </a>
+                --}}
+
+            {{-- ================= NORMAL USER ================= --}}
             @else
 
                 <a href="{{ route('dashboard') }}"
@@ -46,14 +74,6 @@
                    class="btn btn-primary btn-sm">
                     Notices
                 </a>
-
-                <!-- Optional: Add when user result page is ready -->
-                {{--
-                <a href="{{ route('user.results') }}"
-                   class="btn btn-warning btn-sm">
-                    Results
-                </a>
-                --}}
 
             @endif
 

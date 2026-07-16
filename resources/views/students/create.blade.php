@@ -52,6 +52,41 @@
 
                         @csrf
 
+
+                                      <div class="mb-3">
+
+    <label class="form-label">
+
+        Student User
+
+    </label>
+
+    <select
+        name="user_id"
+        class="form-select"
+        required>
+
+        <option value="">
+
+            Select Student
+
+        </option>
+
+        @foreach($users as $user)
+
+            <option value="{{ $user->id }}">
+
+                {{ $user->name }}
+                ({{ $user->email }})
+
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
+
                         <div class="mb-3">
 
                             <label>Name</label>
