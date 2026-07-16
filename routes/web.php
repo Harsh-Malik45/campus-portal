@@ -35,6 +35,9 @@ Route::get('/', function () {
     Route::get('/student/profile', [StudentDashboardController::class, 'profile'])
         ->name('student.profile');
 
+        Route::get('/student/results', [StudentDashboardController::class, 'results'])
+    ->name('student.results');
+
     // Admin Routes
     Route::middleware('admin')->group(function () {
 

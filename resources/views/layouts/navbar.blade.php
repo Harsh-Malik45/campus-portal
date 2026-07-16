@@ -8,8 +8,7 @@
 
         <div class="d-flex gap-2">
 
-            {{-- ================= ADMIN ================= --}}
-            @if(auth()->user()->role == 'admin')
+             @if(auth()->user()->role == 'admin')
 
                 <a href="{{ route('dashboard') }}"
                    class="btn btn-light btn-sm">
@@ -36,8 +35,7 @@
                     Users
                 </a>
 
-            {{-- ================= STUDENT ================= --}}
-            @elseif(auth()->user()->role == 'student')
+             @elseif(auth()->user()->role == 'student')
 
                 <a href="{{ route('student.dashboard') }}"
                    class="btn btn-light btn-sm">
@@ -49,21 +47,17 @@
                     My Profile
                 </a>
 
+                <a href="{{ route('student.results') }}"
+                   class="btn btn-warning btn-sm">
+                    My Results
+                </a>
+
                 <a href="{{ route('user.notices') }}"
                    class="btn btn-primary btn-sm">
                     Notices
                 </a>
 
-                {{-- Future Feature --}}
-                {{--
-                <a href="{{ route('student.results') }}"
-                   class="btn btn-warning btn-sm">
-                    My Results
-                </a>
-                --}}
-
-            {{-- ================= NORMAL USER ================= --}}
-            @else
+             @else
 
                 <a href="{{ route('dashboard') }}"
                    class="btn btn-light btn-sm">
