@@ -1,116 +1,285 @@
- # Notice Board Management System
+ # 🎓 Campus Management Portal
 
-A role-based Notice Board Management System built with Laravel. The system allows administrators to manage notices and users, while normal users can view published notices.
+A full-stack **Campus Management Portal** built with **Laravel 12** that streamlines campus administration through role-based access control. The system enables administrators to manage students, users, notices, and academic results, while providing students with personalized dashboards, profiles, and result access.
 
-## Features
+---
 
-### Authentication
+# 🚀 Features
 
-* User Registration
-* User Login
-* User Logout
-* Laravel Breeze Authentication
+## 🔐 Authentication
 
-### Role-Based Access Control
+- User Registration
+- User Login
+- User Logout
+- Laravel Breeze Authentication
+- Password Hashing
+- Session Management
 
-* Admin Role
-* User Role
-* Protected Admin Routes using Middleware
-* Separate Admin and User Dashboards
+---
 
-### Notice Management
+## 👥 Role-Based Access Control
 
-* Create Notice
-* View Notices
-* Edit Notice
-* Delete Notice
-* Notice Details Page
-* Published Date Display
-* Recent Notices Section
+### 👨‍💼 Admin
 
-### User Management
+- Dashboard Analytics
+- Manage Users
+- Manage Students
+- Manage Notices
+- Manage Results
+- Import & Export Results
 
-* View All Users
-* Edit User Roles
-* Delete Users
-* Prevent Admin Self-Deletion
+### 👨‍🎓 Student
 
-### Dashboard
+- Student Dashboard
+- View Profile
+- View Personal Results
+- View Latest Notices
 
-* Total Users Count
-* Total Admins Count
-* Total Notices Count
-* Recent Notices Overview
+### 👤 User
 
-### Additional Features
+- View Published Notices
+- Search Notices
+- View Notice Details
 
-* Notice Search Functionality
-* Pagination
-* Bootstrap UI
-* Responsive Design
-* Delete Confirmation Popup
+---
 
-## Tech Stack
+## 📢 Notice Management
 
-### Frontend
+- Create Notice
+- Edit Notice
+- Delete Notice
+- Search Notices
+- Pagination
+- Latest Notices
+- Notice Details Page
 
-* HTML
-* CSS
-* Bootstrap 5
-* Blade Templates
+---
 
-### Backend
+## 👨‍🎓 Student Management
 
-* PHP
-* Laravel 12
+- Add Student
+- Edit Student
+- Delete Student
+- Search Students
+- Pagination
+- User ↔ Student Mapping
+- Roll Number Management
+- Branch Management
+- Year & Semester Management
 
-### Database
+---
 
-* MySQL
+## 📊 Result Management
 
-### Tools
+- Add Results
+- Edit Results
+- Delete Results
+- Search Results
+- Pagination
 
-* Git
-* GitHub
-* XAMPP
+### Excel Features
 
-## Database Structure
+- Import Results from Excel
+- Export Results to Excel
+- Download Excel Template
+- Bulk Upload Support
+- Duplicate Prevention using `updateOrCreate()`
 
-### Users Table
+---
 
-| Column     | Type             |
-| ---------- | ---------------- |
-| id         | bigint           |
-| name       | string           |
-| email      | string           |
-| password   | string           |
-| role       | enum(admin,user) |
-| created_at | timestamp        |
-| updated_at | timestamp        |
+## 📈 Dashboard
 
-### Notices Table
+### Admin Dashboard
 
-| Column      | Type        |
-| ----------- | ----------- |
-| id          | bigint      |
-| title       | string      |
-| description | text        |
-| created_by  | foreign key |
-| created_at  | timestamp   |
-| updated_at  | timestamp   |
+- Total Users
+- Total Admins
+- Total Students
+- Total Notices
+- Total Results
+- Recent Notices
 
-## Relationships
+### Student Dashboard
 
-### User Model
+- Student Information
+- Latest Notices
+- Quick Navigation
+- My Profile
+- My Results
+
+---
+
+## 🔍 Search Functionality
+
+### Students
+
+- Search by Name
+- Search by Roll Number
+- Search by Branch
+
+### Results
+
+- Search by Student Name
+- Search by Subject
+
+### Notices
+
+- Search by Title
+
+---
+
+## 🎨 User Interface
+
+- Bootstrap 5
+- Responsive Design
+- Bootstrap Cards
+- Tables
+- Pagination
+- Delete Confirmation Popup
+- Toastr Notifications
+- jQuery Validation
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+- HTML5
+- CSS3
+- Bootstrap 5
+- Blade Templates
+- JavaScript
+- jQuery
+
+## Backend
+
+- PHP 8
+- Laravel 12
+
+## Database
+
+- MySQL
+
+## Packages
+
+- Laravel Breeze
+- Laravel Excel (Maatwebsite Excel)
+
+## Tools
+
+- Git
+- GitHub
+- Composer
+- XAMPP
+- VS Code
+
+---
+
+# 🗄 Database Structure
+
+## Users Table
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| name | string |
+| email | string |
+| password | string |
+| role | enum(admin, user, student) |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+## Students Table
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| user_id | Foreign Key |
+| name | string |
+| roll_no | string |
+| year | integer |
+| semester | integer |
+| branch | string |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+## Results Table
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| student_id | Foreign Key |
+| subject | string |
+| max_marks | integer |
+| obtained_marks | integer |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+## Notices Table
+
+| Column | Type |
+|---------|------|
+| id | bigint |
+| title | string |
+| description | text |
+| created_by | Foreign Key |
+| created_at | timestamp |
+| updated_at | timestamp |
+
+---
+
+# 🔗 Eloquent Relationships
+
+## User Model
 
 ```php
+public function student()
+{
+    return $this->hasOne(Student::class);
+}
+
 public function notices()
 {
     return $this->hasMany(Notice::class, 'created_by');
 }
 ```
 
-### Notice Model
+---
+
+## Student Model
+
+```php
+public function user()
+{
+    return $this->belongsTo(User::class);
+}
+
+public function results()
+{
+    return $this->hasMany(Result::class);
+}
+```
+
+---
+
+## Result Model
+
+```php
+public function student()
+{
+    return $this->belongsTo(Student::class);
+}
+```
+
+---
+
+## Notice Model
 
 ```php
 public function user()
@@ -119,47 +288,116 @@ public function user()
 }
 ```
 
-## Installation
+---
 
-### Clone Repository
+# 📥 Excel Import & Export
 
-```bash
-git clone https://github.com/your-username/notice-board-management-system.git
+### Import Results
+
+- Upload results using Excel.
+- Automatically maps students using Roll Number.
+- Updates existing records using `updateOrCreate()`.
+- Prevents duplicate entries.
+
+### Export Results
+
+- Export all student results into an Excel spreadsheet.
+
+### Download Template
+
+- Download a predefined Excel template for bulk uploads.
+
+---
+
+# 📂 Project Structure
+
+```text
+app/
+├── Exports/
+│   └── ResultsExport.php
+├── Imports/
+│   └── ResultsImport.php
+├── Http/
+│   ├── Controllers/
+│   │   ├── DashboardController.php
+│   │   ├── StudentDashboardController.php
+│   │   ├── NoticeController.php
+│   │   ├── StudentController.php
+│   │   ├── ResultController.php
+│   │   └── UserController.php
+│   └── Middleware/
+│       └── AdminMiddleware.php
+├── Models/
+│   ├── User.php
+│   ├── Student.php
+│   ├── Result.php
+│   └── Notice.php
+
+resources/
+└── views/
+    ├── admin/
+    ├── student/
+    ├── students/
+    ├── results/
+    ├── notices/
+    ├── users/
+    └── layouts/
 ```
 
-### Navigate to Project
+---
+
+# ⚙️ Installation
+
+## Clone Repository
 
 ```bash
-cd notice-board-management-system
+git clone https://github.com/your-username/campus-management-portal.git
 ```
 
-### Install Dependencies
+## Navigate to Project
+
+```bash
+cd campus-management-portal
+```
+
+## Install Dependencies
 
 ```bash
 composer install
 ```
 
-### Configure Environment
+## Copy Environment File
 
 ```bash
 cp .env.example .env
 ```
 
-Update database credentials in `.env`.
-
-### Generate Application Key
+## Generate Application Key
 
 ```bash
 php artisan key:generate
 ```
 
-### Run Migrations
+## Configure Database
+
+Update your `.env` file:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=campus_management
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## Run Migrations
 
 ```bash
 php artisan migrate
 ```
 
-### Start Development Server
+## Start Development Server
 
 ```bash
 php artisan serve
@@ -171,65 +409,78 @@ Visit:
 http://127.0.0.1:8000
 ```
 
-## Admin Functionalities
+---
 
-* Manage Notices
-* Manage Users
-* Assign Roles
-* View Dashboard Statistics
-* Search Notices
-* View Recent Notices
+# 👨‍💼 Admin Functionalities
 
-## User Functionalities
+- Dashboard Analytics
+- Manage Users
+- Manage Students
+- Manage Notices
+- Manage Results
+- Import Results from Excel
+- Export Results to Excel
+- Download Excel Template
 
-* View Notices
-* Search Notices
-* View Notice Details
-* See Published Dates
+---
 
-## Project Structure
+# 👨‍🎓 Student Functionalities
 
-```text
-app/
-├── Http/
-│   ├── Controllers/
-│   │   ├── DashboardController.php
-│   │   ├── NoticeController.php
-│   │   └── UserController.php
-│   └── Middleware/
-│       └── AdminMiddleware.php
-├── Models/
-│   ├── User.php
-│   └── Notice.php
+- Student Dashboard
+- View Profile
+- View Personal Results
+- View Latest Notices
 
-resources/views/
-├── admin/
-├── user/
-├── notices/
-└── layouts/
-```
+---
 
-## Future Enhancements
+# 👤 User Functionalities
 
-* Notice Categories
-* File Attachments
-* Email Notifications
-* User Profile Management
-* Advanced Search Filters
+- View Notices
+- Search Notices
+- View Notice Details
 
-## Learning Outcomes
+---
 
-* Laravel Authentication
-* Middleware
-* Role-Based Authorization
-* CRUD Operations
-* Eloquent Relationships
-* Search and Pagination
-* MVC Architecture
-* Database Design
+# 📚 Learning Outcomes
 
-## Author
+- Laravel 12
+- Laravel Breeze Authentication
+- Role-Based Authorization
+- Middleware
+- CRUD Operations
+- MVC Architecture
+- Eloquent Relationships
+- Database Design
+- Foreign Keys
+- Search & Pagination
+- Form Validation
+- Excel Import & Export
+- Responsive UI Development
 
-Harsh Malik
+---
+
+# 🚀 Future Enhancements
+
+- PDF Result Download
+- Attendance Management
+- Fee Management
+- Student Photo Upload
+- Notice Attachments
+- Dashboard Charts
+- Email Notifications
+- Advanced Search Filters
+- Profile Image Upload
+
+---
+
+# 👨‍💻 Author
+
+**Harsh Malik**
 
 B.Tech Computer Science Engineering Student
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub!
